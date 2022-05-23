@@ -3,8 +3,8 @@ import { TodoCounter } from "./TodoCounter";
 import { TodoSearch } from "./TodoSearch.js";
 import { TodoList } from "./TodoList.js";
 import { TodoItem } from "./TodoItem.js";
-import { CreateTodoButtom } from "./CreateTodoButton.js";
-//import './App.css';
+import { CreateTodoButtom } from "./CreateTodoButtom.js";
+import './App.css';
 
 const todos=[
 	{text:'Cortar cebolla', completed:false},
@@ -18,7 +18,7 @@ function App() {
 			<TodoCounter />
 			<TodoSearch />
 			<TodoList>
-				{todos.map(todo =>(<TodoItem key={todo.text} text={todo.text} />))}
+				{todos.map(todo =>(<TodoItem key={todo.text} text={todo.text} completed={todo.completed} />))}
 			</TodoList>
 			<CreateTodoButtom />
 		</react.Fragment>
