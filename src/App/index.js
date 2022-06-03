@@ -1,21 +1,13 @@
 import React from "react";
 import './App.css';
 import { AppUI } from "./AppUI";
+import { useLocalStorage } from "../CustomHooks/useLocalStorage"
 
 const NAME_LOCALSTORANGE = 'TODOS_V1';
 
 function App() {
-	const localStorageTodos = localStorage.getItem( NAME_LOCALSTORANGE );
-	let parsedTodos;
 
-	if ( !localStorageTodos ) {
-		localStorage.setItem( NAME_LOCALSTORANGE, JSON.stringify([]) );
-		parsedTodos = [];
-	} else {
-		parsedTodos = JSON.parse(localStorageTodos);
-	}
-
-	const [todos, setTodos] = React.useState( parsedTodos );
+	const [todos, setTodos] = useLocalStorage( NAME_LOCALSTORANGE, [] );
 	const [searchValue, setSearchValue] = React.useState('');
 
 	const completedTodos = todos.filter(todo => !!todo.completed).length;
