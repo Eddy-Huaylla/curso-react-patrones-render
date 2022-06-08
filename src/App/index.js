@@ -6,8 +6,7 @@ import { useLocalStorage } from "../CustomHooks/useLocalStorage"
 const NAME_LOCALSTORANGE = 'TODOS_V1';
 
 function App() {
-
-	const [todos, setTodos] = useLocalStorage( NAME_LOCALSTORANGE, [] );
+	const { item: todos, saveItem: saveTodos, loading, error, } = useLocalStorage( NAME_LOCALSTORANGE, [] );
 	const [searchValue, setSearchValue] = React.useState('');
 
 	const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -24,12 +23,6 @@ function App() {
 			return todoText.includes(searchText);
 		});
 	}
-
-	const saveTodos = (newTodos) => {
-		const stringifiedTodos = JSON.stringify( newTodos );
-		localStorage.setItem( NAME_LOCALSTORANGE, stringifiedTodos );
-		setTodos( newTodos );
-	};
 
 	const completeTodo = (text) => {
 		const todoIndex = todos.findIndex(todo => todo.text === text);
@@ -48,6 +41,8 @@ function App() {
 
 	return (
 		<AppUI
+			loading        = { loading }
+			error          = { error }
 			totalTodos     = { totalTodos }
 			completedTodos = { completedTodos }
 			searchValue    = { searchValue }
