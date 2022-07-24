@@ -3,10 +3,13 @@ import { CreateTodoButtom } from "../CreateTodoButtom";
 import { useTodos } from "../CustomHooks/useTodos";
 import { Modal } from "../Modal";
 import { TodoCounter } from "../TodoCounter";
+import { TodoEmpty } from "../TodoEmpty";
+import { TodoError } from "../TodoError";
 import { TodoForm } from "../TodoForm";
 import { TodoHeader } from "../TodoHeader";
 import { TodoItem } from "../TodoItem";
 import { TodoList } from "../TodoList";
+import { TodoLoading } from "../TodoLoading";
 import { TodoSearch } from "../TodoSearch";
 import './App.css';
 
@@ -42,13 +45,14 @@ function App() {
 
 			</TodoHeader>
 
-			<TodoList>
-				{error && <p>Desespérate, hubo un error...</p>}
-				{loading && <p>Estamos cargando, no desesperes...</p>}
-				{(!loading && !searchedTodos.length) && <p>¡Crea tu primer TODO!</p>}
-
-				{
-					searchedTodos.map( todo => (
+			<TodoList
+				error = { error }
+				loading = { loading }
+				searchedTodos = { searchedTodos }
+				onError = { () => <TodoError /> }
+				onLoading = { () => <TodoLoading /> }
+				onEmpty = { () => <TodoEmpty /> }
+				render = { todo => (
 						<TodoItem
 							key        = {todo.text}
 							text       = {todo.text}
@@ -56,8 +60,8 @@ function App() {
 							onComplete = {() => completeTodo(todo.text)}
 							onDelete   = {() => deleteTodo(todo.text)}
 						/>
-					))
-				}
+					) }
+			>
 			</TodoList>
 
 			{!!openModal && (
