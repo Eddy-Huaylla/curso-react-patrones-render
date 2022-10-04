@@ -1,12 +1,17 @@
 import React from 'react';
-import { WithStorageListener } from './withStorageListener';
+import { WithStorageListener } from './WithStorageListener';
 
 const ChangeAlert=({show,toggleShow})=>{
 	if ( show ) {
-		return <p>Hubo cambios</p>
+		return(
+			<div>
+				<p>Hubo hubo cambios</p>
+				<button onClick={toggleShow}>Volver a cargar la información</button>
+			</div>
+		);
 	}
 	else {
-		return <></>
+		return null
 	}
 }
 
